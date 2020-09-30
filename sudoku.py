@@ -22,6 +22,8 @@ class Sudoku:
     def showgrid(self):
         print(np.matrix(grid))
 
+    def getCurrentGrid(self):
+        return grid
 
     def setGrid(self, setGrid):
         global grid

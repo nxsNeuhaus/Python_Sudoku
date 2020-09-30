@@ -3,7 +3,7 @@ from sudoku import Sudoku
 sudokuSolver = Sudoku()
 
 print('Start:')
-print(sudokuSolver.showgrid())
+sudokuSolver.showgrid()
 print('--------------------')
 
 
