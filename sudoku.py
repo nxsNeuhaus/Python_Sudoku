@@ -1,3 +1,5 @@
+#from grid import grid
+
 import inspect
 import numpy as np
 
@@ -19,8 +21,12 @@ sudokuGrid = np.array(
 
 
 class Sudoku:
+    title = 'sudoku'
+
     def showgrid(self):
         print(np.matrix(sudokuGrid))
+#       grid = grid(sudokuGrid, self.title)
+#       grid.window()
 
     def getCurrentGrid(self):
         return sudokuGrid
@@ -28,7 +34,6 @@ class Sudoku:
     def setGrid(self, newGrid):
         global sudokuGrid
         sudokuGrid = newGrid
-
 
     def possible(self, y, x, n):
         global sudokuGrid
@@ -45,7 +50,6 @@ class Sudoku:
                 if sudokuGrid[y0 + i][x0 + j] == n:
                     return False
         return True
-
 
     def solve(self):
         global sudokuGrid
