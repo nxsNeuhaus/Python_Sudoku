@@ -1,8 +1,9 @@
 import pygame
+import copy
 
-(window_width, window_height) = (667, 667)
+(window_width, window_height) = (660, 660)
 grid_width = 630
-grid_margin = 4
+grid_margin = 2
 grid_field = 9
 
 black = (0, 0, 0)
@@ -28,23 +29,38 @@ class grid:
         pygame.display.set_caption(self.title)
 
         screen.fill(white)
-        rectSice = grid_width + grid_margin * grid_field + 1
-        pygame.draw.rect(screen, black, [0, 0, rectSice, rectSice])
+        rectSice = grid_width + grid_margin * grid_field + 6
+
+        pygame.draw.rect(screen, black, [3, 3, rectSice, rectSice])
 
         for row in range(grid_field):
             for column in range(grid_field):
-                if ((row in (0,1,2,6,7,8) and column in (0,1,2,6,7,8)) or (row in (3,4,5) and column in (3,4,5))):
-                    self.drawRect(column, row, screen, gray)
+                if (row in (0, 1, 2, 6, 7, 8) and column in (0, 1, 2, 6, 7, 8)) or (row in (3, 4, 5) and column in (3, 4, 5)):
+                    margin = copy.deepcopy(grid_margin)
+                    self.drawRect(column, row, screen, gray, margin)
                 else:
-                    self.drawRect(column, row, screen, white)
+                    margin = copy.deepcopy(grid_margin)
+                    self.drawRect(column, row, screen, white, margin)
 
                 if int(grid[row][column]) != 0:
                     myfont = pygame.font.SysFont("times new roman", 64)
                     dicedisplay = myfont.render(str(grid[row][column]), 1, blue)
 
-                    pos1 = (column * (grid_width / grid_field + grid_margin)) + (grid_width / grid_field / 3)
-                    pos2 = row * (grid_width / grid_field + grid_margin)
+                    pos1 = (column * (grid_width / grid_field + grid_margin)) + (grid_width / grid_field / 3) + 5
+                    pos2 = row * (grid_width / grid_field + grid_margin) + 5
                     screen.blit(dicedisplay, (pos1, pos2))
+
+        pygame.draw.line(screen, black, (220, 5), (220, 655))
+        pygame.draw.line(screen, black, (223, 5), (223, 655))
+
+        pygame.draw.line(screen, black, (436, 5), (436, 655))
+        pygame.draw.line(screen, black, (439, 5), (439, 655))
+
+        pygame.draw.line(screen, black, (5, 220), (655, 220))
+        pygame.draw.line(screen, black, (5, 222), (655, 222))
+
+        pygame.draw.line(screen, black, (5, 437), (655, 437))
+        pygame.draw.line(screen, black, (5, 439), (655, 439))
 
         pygame.display.flip()
 
@@ -54,9 +70,8 @@ class grid:
                 if event.type == pygame.QUIT:
                     running = False
                     exit()
-                # elif event.type == pygame.MOUSEBUTTONDOWN:
-                #     column, row = self.getGridPosFromMousePos()
-                #     print("click ", "grid coordinates: ", row, column)
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    column, row = self.getGridPosFromMousePos()
                 elif event.type == pygame.KEYUP:
                     if (event.key == pygame.K_1 or event.key == pygame.K_KP1):
                         self.updateFieldInput(Sudoku, grid, 1)
@@ -85,13 +100,13 @@ class grid:
                     elif (event.key == pygame.K_F3):
                         Sudoku.getRandomGrid()
 
-    def drawRect(self, column, row, screen, color):
+    def drawRect(self, column, row, screen, color, margin):
         pygame.draw.rect(
             screen,
             color,
             [
-                (grid_margin + grid_width / grid_field) * column + grid_margin,
-                (grid_margin + grid_width / grid_field) * row + grid_margin,
+                (margin + grid_width / grid_field) * column + margin + 5,
+                (margin + grid_width / grid_field) * row + margin + 5,
                 grid_width / grid_field,
                 grid_width / grid_field
             ]
@@ -109,6 +124,7 @@ class grid:
 
     def getGridPosFromMousePos(self):
         pos = pygame.mouse.get_pos()
-        column = pos[0] // (grid_width / grid_field + grid_margin)
-        row = pos[1] // (grid_width / grid_field + grid_margin)
+        column = pos[0] // (grid_width / grid_field + grid_margin + 5)
+        row = pos[1] // (grid_width / grid_field + grid_margin + 5)
+        print(pos, column, row)
         return int(column), int(row)
