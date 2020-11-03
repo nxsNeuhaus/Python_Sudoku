@@ -1,6 +1,7 @@
 from grid import grid
 
 import inspect
+import copy
 import numpy as np
 
 sudokuGrid = np.array(
@@ -18,7 +19,7 @@ sudokuGrid = np.array(
         [5, 2, 0,   0, 8, 0,   0, 0, 0]
     ]
 )
-
+originalGrid = copy.deepcopy(sudokuGrid)
 
 class Sudoku:
     title = 'sudoku'
@@ -33,7 +34,7 @@ class Sudoku:
 
     def setGrid(self, newGrid):
         global sudokuGrid
-        sudokuGrid = newGrid
+        sudokuGrid = copy.deepcopy(newGrid)
 
     def possible(self, y, x, n):
         global sudokuGrid
@@ -63,23 +64,19 @@ class Sudoku:
                             # Backtracking
                             sudokuGrid[y][x] = 0
                     return
-        # print(np.matrix(sudokuGrid))
         self.showgrid()
 
     def reset(self):
-        self.setGrid(np.array(
-            [
-                [0, 0, 0, 0, 4, 0, 0, 7, 6],
-                [7, 1, 0, 3, 9, 0, 0, 0, 0],
-                [0, 0, 3, 8, 0, 0, 0, 0, 0],
-
-                [0, 0, 0, 0, 0, 0, 6, 0, 8],
-                [3, 0, 4, 0, 0, 0, 7, 0, 5],
-                [1, 0, 6, 0, 0, 0, 0, 0, 0],
-
-                [0, 0, 0, 0, 0, 4, 5, 0, 0],
-                [0, 0, 0, 0, 7, 5, 0, 9, 1],
-                [5, 2, 0, 0, 8, 0, 0, 0, 0]
-            ]
-        ))
+        global originalGrid
+        self.setGrid(originalGrid)
         self.showgrid()
+
+    def getRandomGrid(self):
+        global sudokuGrid, originalGrid
+        import urllib.request, json
+        with urllib.request.urlopen("https://sugoku.herokuapp.com/board?difficulty=random") as url:
+            data = json.loads(url.read().decode())
+        self.setGrid(data['board'])
+        originalGrid = copy.deepcopy(sudokuGrid)
+        self.showgrid()
+

@@ -1,6 +1,6 @@
 import pygame
 
-(window_width, window_height) = (775, 700)
+(window_width, window_height) = (667, 667)
 grid_width = 630
 grid_margin = 4
 grid_field = 9
@@ -82,6 +82,8 @@ class grid:
                         Sudoku.solve()
                     elif (event.key == pygame.K_F2):
                         Sudoku.reset()
+                    elif (event.key == pygame.K_F3):
+                        Sudoku.getRandomGrid()
 
     def drawRect(self, column, row, screen, color):
         pygame.draw.rect(

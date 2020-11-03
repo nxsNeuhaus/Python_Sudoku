@@ -9,11 +9,12 @@ You can manually solve the sudoku grid as well if you want to.
 For ruinning the application run the main.py file.
 
 ---
-##Keys
+## Short keys
 ```
 F1 = Solve the Sudoku
 F2 = reset it to original
-Del = removing the number standing in it, where your mouse is located
+F3 = get a random sudoku via. json api
+Del or 0 = removing the number standing in it, where your mouse is located
 ```
 ---
 Manually solving is possible as well.
