@@ -63,5 +63,23 @@ class Sudoku:
                             # Backtracking
                             sudokuGrid[y][x] = 0
                     return
-        print(np.matrix(sudokuGrid))
+        # print(np.matrix(sudokuGrid))
+        self.showgrid()
+
+    def reset(self):
+        self.setGrid(np.array(
+            [
+                [0, 0, 0, 0, 4, 0, 0, 7, 6],
+                [7, 1, 0, 3, 9, 0, 0, 0, 0],
+                [0, 0, 3, 8, 0, 0, 0, 0, 0],
+
+                [0, 0, 0, 0, 0, 0, 6, 0, 8],
+                [3, 0, 4, 0, 0, 0, 7, 0, 5],
+                [1, 0, 6, 0, 0, 0, 0, 0, 0],
+
+                [0, 0, 0, 0, 0, 4, 5, 0, 0],
+                [0, 0, 0, 0, 7, 5, 0, 9, 1],
+                [5, 2, 0, 0, 8, 0, 0, 0, 0]
+            ]
+        ))
         self.showgrid()
