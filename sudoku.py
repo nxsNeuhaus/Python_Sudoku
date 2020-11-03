@@ -1,4 +1,4 @@
-#from grid import grid
+from grid import grid
 
 import inspect
 import numpy as np
@@ -24,9 +24,9 @@ class Sudoku:
     title = 'sudoku'
 
     def showgrid(self):
-        print(np.matrix(sudokuGrid))
-#       grid = grid(sudokuGrid, self.title)
-#       grid.window()
+        field = grid('Sudoku')
+        # print(np.matrix(sudokuGrid))
+        field.window(self)
 
     def getCurrentGrid(self):
         return sudokuGrid
@@ -64,3 +64,4 @@ class Sudoku:
                             sudokuGrid[y][x] = 0
                     return
         print(np.matrix(sudokuGrid))
+        self.showgrid()
