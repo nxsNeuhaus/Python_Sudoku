@@ -124,7 +124,7 @@ class grid:
 
     def getGridPosFromMousePos(self):
         pos = pygame.mouse.get_pos()
-        column = pos[0] // (grid_width / grid_field + grid_margin + 5)
-        row = pos[1] // (grid_width / grid_field + grid_margin + 5)
+        column = pos[0] // (grid_width / grid_field + grid_margin)
+        row = pos[1] // (grid_width / grid_field + grid_margin)
         print(pos, column, row)
         return int(column), int(row)
